@@ -1,10 +1,10 @@
 # Yohan Yun
 
 **Master’s Student, HCI Lab @ KAIST**  
-**Email:** [yohanme@kaist.ac.kr]  
-**GitHub:** [https://github.com/JohnnyYoungster]
-**Research Interests:** VR, Input Systems, Haptics, Interactive Media, Video Games
+**Email:** [yohanme@kaist.ac.kr](mailto:yohanme@kaist.ac.kr)  
+**GitHub:** [https://github.com/JohnnyYoungster](https://github.com/JohnnyYoungster)  
 
+**Research Interests:** VR, Input Systems, Haptics, Interactive Media, Video Games
 ---
 
 ## 🎓 Education
@@ -63,7 +63,7 @@ _2024–Present_
 - Explored headset-based interaction, tactile interfaces, and novel controllers.
 
 **KIXLAB Intern, KAIST**  
-_2022_
+_2021-2022_
 _Project: DAPIE (CHI 2023 Submission)_  
 - Designed a system for explanatory dialogues to answer children's "why/how" questions.
 - Built Q&A dataset and led design ideation.
@@ -73,9 +73,11 @@ _Project: PerPl (KIXLAB × Hyundai Motor Group)_
 - Unity-based VR prototyping and backend server with AWS and Python.
 
 **Startup Simulation Game Dev (K-School)**  
+_2019-2022_
 - Lead developer and project manager for games like *Battman*, *Sharide*, *Hotice*.
 - Educational games used in DTU, TU Munich, Harvard, etc.
 - Unity WebGL frontend + AWS backend
+
 
 ---
 
