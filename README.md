@@ -3,7 +3,7 @@
 **Master’s Student, HCI Lab @ KAIST**  
 **Email:** [yohanme@kaist.ac.kr]  
 **GitHub:** [https://github.com/JohnnyYoungster]
-**Research Interests:** AR/VR, Input Systems, Haptics, Interactive Media, Video Games  
+**Research Interests:** [AR/VR, Input Systems, Haptics, Interactive Media, Video Games]
 
 ---
 
@@ -76,8 +76,8 @@ _Project: PerPl (KIXLAB × Hyundai Motor Group)_
 
 ## 🛠 Technical Skills
 
-**Languages:** Python, C/C++, Java, JavaScript, TypeScript, Scala, F#, C#, UnityScript, Objective C, Swift
-**Tools:** Unity, WebGL, AWS, Git, Google Colab, Unity VR(Oculus, Vive)
+- **Languages:** Python, C/C++, Java, JavaScript, TypeScript, Scala, F#, C#, UnityScript, Objective C, Swift
+- **Tools:** Unity, WebGL, AWS, Git, Google Colab, Unity VR(Oculus, Vive)
 
 ---
 
