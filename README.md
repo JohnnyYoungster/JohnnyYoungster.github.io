@@ -3,7 +3,7 @@
 **Master’s Student, HCI Lab @ KAIST**  
 **Email:** [yohanme@kaist.ac.kr]  
 **GitHub:** [https://github.com/JohnnyYoungster]
-**Research Interests:** [VR, Input Systems, Haptics, Interactive Media, Video Games]
+**Research Interests:** VR, Input Systems, Haptics, Interactive Media, Video Games
 
 ---
 
@@ -13,6 +13,7 @@
 _M.S. in Computer Science (HCI Lab)_  
 _Advisor: Prof. Geehyuk Lee_  
 _Research Focus: AR/VR Interaction, Input Systems, Video Games, Interactive Media, Haptics_  
+_GPA: 4.07/4.3_
 
 **KAIST**  
 _B.S. in Computer Science_  
