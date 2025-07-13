@@ -3,7 +3,7 @@
 **Master’s Student, HCI Lab @ KAIST**  
 **Email:** [yohanme@kaist.ac.kr]  
 **GitHub:** [https://github.com/JohnnyYoungster]
-**Research Interests:** [AR/VR, Input Systems, Haptics, Interactive Media, Video Games]
+**Research Interests:** [VR, Input Systems, Haptics, Interactive Media, Video Games]
 
 ---
 
@@ -46,6 +46,10 @@ _Took robotics, game, graphics AI, HCI-related courses_
   *UIST 2024*
 
 ### 2023
+
+- **DAPIE**: *Interactive Step-by-Step Explanatory Dialogues to Answer Children’s Why and How Questions*  
+  Yoonjoo Lee, Tae Soo Kim, Sungdong Kim, **Yohan Yun**, Juho Kim.
+  *CHI 2023*
 
 ---
 
