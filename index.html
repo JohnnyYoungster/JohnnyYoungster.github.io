@@ -1,0 +1,412 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Yohan Yun | HCI Researcher</title>
+    <style>
+        :root {
+            --primary-color: #2563eb;
+            --text-main: #1f2937;
+            --text-light: #4b5563;
+            --bg-color: #f9fafb;
+            --card-bg: #ffffff;
+            --tag-bg: #e0e7ff;
+            --tag-text: #3730a3;
+        }
+
+        * {
+            box-sizing: border-box;
+            margin: 0;
+            padding: 0;
+        }
+
+        body {
+            font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, Helvetica, Arial, sans-serif;
+            line-height: 1.6;
+            color: var(--text-main);
+            background-color: var(--bg-color);
+        }
+
+        header {
+            background-color: var(--card-bg);
+            padding: 4rem 2rem;
+            border-bottom: 1px solid #e5e7eb;
+            text-align: center;
+        }
+
+        .container {
+            max-width: 900px;
+            margin: 0 auto;
+            padding: 2rem;
+        }
+
+        h1 {
+            font-size: 2.5rem;
+            margin-bottom: 1rem;
+            color: var(--primary-color);
+        }
+
+        .intro {
+            font-size: 1.25rem;
+            color: var(--text-light);
+            max-width: 600px;
+            margin: 0 auto;
+            line-height: 1.8;
+        }
+
+        h2 {
+            font-size: 1.8rem;
+            margin: 3rem 0 1.5rem;
+            border-bottom: 2px solid var(--primary-color);
+            display: inline-block;
+            padding-bottom: 0.25rem;
+        }
+
+        /* Lists and Cards */
+        ul {
+            list-style-position: inside;
+            color: var(--text-light);
+            margin-bottom: 0.5rem;
+            padding-left: 1rem;
+        }
+
+        .grid-tags {
+            display: flex;
+            flex-wrap: wrap;
+            gap: 0.5rem;
+            margin-bottom: 2rem;
+        }
+
+        .tag {
+            background-color: var(--tag-bg);
+            color: var(--tag-text);
+            padding: 0.25rem 0.75rem;
+            border-radius: 999px;
+            font-size: 0.875rem;
+            font-weight: 500;
+        }
+
+        .timeline-item {
+            background: var(--card-bg);
+            padding: 1.5rem;
+            border-radius: 8px;
+            box-shadow: 0 1px 3px rgba(0,0,0,0.1);
+            margin-bottom: 1.5rem;
+            border-left: 4px solid var(--primary-color);
+        }
+
+        .timeline-header {
+            display: flex;
+            justify-content: space-between;
+            align-items: baseline;
+            margin-bottom: 0.5rem;
+            flex-wrap: wrap;
+        }
+
+        .timeline-title {
+            font-size: 1.2rem;
+            font-weight: bold;
+            color: var(--text-main);
+        }
+
+        .timeline-meta {
+            color: var(--primary-color);
+            font-weight: 600;
+            font-size: 0.95rem;
+        }
+
+        .timeline-item p {
+            color: var(--text-light);
+            margin-bottom: 0.5rem;
+        }
+
+        .paper-card {
+            background: var(--card-bg);
+            padding: 1.5rem;
+            border-radius: 8px;
+            box-shadow: 0 1px 3px rgba(0,0,0,0.1);
+            margin-bottom: 1.5rem;
+            transition: transform 0.2s;
+        }
+
+        .paper-card:hover {
+            transform: translateY(-2px);
+            box-shadow: 0 4px 6px rgba(0,0,0,0.1);
+        }
+
+        .paper-title {
+            font-size: 1.2rem;
+            font-weight: bold;
+            margin-bottom: 0.5rem;
+            color: var(--text-main);
+        }
+
+        .paper-authors {
+            color: var(--text-light);
+            margin-bottom: 0.5rem;
+            font-size: 0.95rem;
+        }
+
+        .paper-venue {
+            font-weight: 600;
+            color: var(--primary-color);
+            margin-bottom: 0.75rem;
+            font-size: 0.95rem;
+        }
+
+        .award {
+            color: #d97706;
+            font-weight: bold;
+            display: block;
+            margin-top: 0.25rem;
+        }
+
+        /* Skills Grid */
+        .skills-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+            gap: 1.5rem;
+        }
+
+        .skill-category {
+            background: var(--card-bg);
+            padding: 1.5rem;
+            border-radius: 8px;
+            box-shadow: 0 1px 3px rgba(0,0,0,0.1);
+        }
+
+        .skill-category h3 {
+            font-size: 1.1rem;
+            color: var(--primary-color);
+            margin-bottom: 1rem;
+        }
+
+        @media (max-width: 600px) {
+            header { padding: 3rem 1rem; }
+            .container { padding: 1rem; }
+            .timeline-header { flex-direction: column; }
+        }
+    </style>
+</head>
+<body>
+
+    <header>
+        <h1>Yohan Yun</h1>
+        <p class="intro">Hello! I am interested in improving the gaming experience of VR, laptop, and console gaming through developing novel haptic and input systems :D</p>
+    </header>
+
+    <div class="container">
+        
+        <section id="research-interests">
+            <h2>Research Interests</h2>
+            <div class="grid-tags">
+                <span class="tag">Gaming Interfaces</span>
+                <span class="tag">Input Systems</span>
+                <span class="tag">Haptic Devices</span>
+                <span class="tag">VR/AR Systems</span>
+            </div>
+        </section>
+
+        <section id="education">
+            <h2>Education</h2>
+            
+            <div class="timeline-item">
+                <div class="timeline-header">
+                    <span class="timeline-title">Ph.D. in Computer Science (HCI Lab)</span>
+                    <span class="timeline-meta">KAIST | 2026 – Present</span>
+                </div>
+            </div>
+
+            <div class="timeline-item">
+                <div class="timeline-header">
+                    <span class="timeline-title">M.S. in Computer Science (HCI Lab)</span>
+                    <span class="timeline-meta">KAIST | 2024 – 2026</span>
+                </div>
+                <p><strong>Advisor:</strong> Prof. Geehyuk Lee</p>
+                <p><strong>Research Focus:</strong> AR/VR Interaction, Input Systems, Video Games, Interactive Media, Haptics</p>
+                <p><strong>GPA:</strong> 4.07 / 4.3</p>
+            </div>
+
+            <div class="timeline-item">
+                <div class="timeline-header">
+                    <span class="timeline-title">B.S. in Computer Science</span>
+                    <span class="timeline-meta">KAIST | 2019 – 2023</span>
+                </div>
+                <p><strong>Minor:</strong> Culture Technology</p>
+                <p><strong>GPA:</strong> 3.76 / 4.3</p>
+            </div>
+
+            <div class="timeline-item">
+                <div class="timeline-header">
+                    <span class="timeline-title">Exchange Student</span>
+                    <span class="timeline-meta">University of Toronto | Fall 2022</span>
+                </div>
+                <p>Coursework in Robotics, Game Design, Graphics AI, and HCI.</p>
+            </div>
+
+            <div class="timeline-item">
+                <div class="timeline-header">
+                    <span class="timeline-title">High School</span>
+                    <span class="timeline-meta">Korea Science Academy (KSA) | 2016 – 2019</span>
+                </div>
+            </div>
+        </section>
+
+        <section id="experience">
+            <h2>Experience & Projects</h2>
+
+            <div class="timeline-item">
+                <div class="timeline-header">
+                    <span class="timeline-title">Research Intern | KIXLAB, KAIST</span>
+                    <span class="timeline-meta">2021 – 2022</span>
+                </div>
+                <ul>
+                    <li><strong>DAPIE:</strong> Designed a system for explanatory dialogues to answer children's "why/how" questions. Built the Q&A dataset and led design ideation. (Resulted in a CHI 2023 publication).</li>
+                    <li><strong>PerPl:</strong> Collaborated with Hyundai Motor Group to design and develop a personalized music system for mobility contexts. Built Unity-based VR prototypes and a backend server using AWS and Python.</li>
+                </ul>
+            </div>
+
+            <div class="timeline-item">
+                <div class="timeline-header">
+                    <span class="timeline-title">Lead Developer & Project Manager | K-School</span>
+                    <span class="timeline-meta">2019 – 2022</span>
+                </div>
+                <p>Startup Simulation Game Development</p>
+                <ul>
+                    <li>Led development and management for educational simulation games including <em>Battman</em>, <em>Sharide</em>, and <em>Hotice</em>.</li>
+                    <li>Games are actively used in curricula at institutions like DTU, TU Munich, and Harvard.</li>
+                    <li><strong>Tech Stack:</strong> Unity WebGL frontend + AWS backend.</li>
+                </ul>
+            </div>
+        </section>
+
+        <section id="publications">
+            <h2>Publications</h2>
+
+            <div class="paper-card">
+                <div class="paper-title">HapPalm: Providing Rich Spatio-Temporal Vibrotactile Feedback on the Palm for Laptop Gaming</div>
+                <div class="paper-authors"><strong>Yohan Yun</strong>, Jaehyun Kim, Geehyuk Lee</div>
+                <div class="paper-venue">CHI 2026</div>
+                <div class="grid-tags">
+                    <span class="tag">Gaming interfaces</span>
+                    <span class="tag">Haptic devices</span>
+                    <span class="tag">CHI</span>
+                </div>
+            </div>
+
+            <div class="paper-card">
+                <div class="paper-title">AutoPark: Adaptive Friction Mouse Facilitating Stable Multi-touch Gesture Input</div>
+                <div class="paper-authors"><strong>Yohan Yun</strong>, Jisu Yim, Geehyuk Lee</div>
+                <div class="paper-venue">ISS 2025 (PACM HCI)</div>
+                <div class="grid-tags">
+                    <span class="tag">Input systems</span>
+                </div>
+            </div>
+
+            <div class="paper-card">
+                <div class="paper-title">StringTouch: A Non-occlusive 3DoF Haptic Interface Using String Structures for Modulating Finger Sensations</div>
+                <div class="paper-authors">YoungIn Kim, Jisu Yim, <strong>Yohan Yun</strong>, Donghyeon Ko, Geehyuk Lee</div>
+                <div class="paper-venue">UIST 2025</div>
+                <div class="grid-tags">
+                    <span class="tag">VR/AR</span>
+                    <span class="tag">Haptic devices</span>
+                    <span class="tag">UIST</span>
+                </div>
+            </div>
+
+            <div class="paper-card">
+                <div class="paper-title">Over the Mouse: Navigating across the GUI with Finger-Lifting Operation Mouse</div>
+                <div class="paper-authors">YoungIn Kim, <strong>Yohan Yun</strong>, Taejun Kim, Geehyuk Lee</div>
+                <div class="paper-venue">CHI 2025</div>
+                <div class="grid-tags">
+                    <span class="tag">Input systems</span>
+                    <span class="tag">CHI</span>
+                </div>
+            </div>
+
+            <div class="paper-card">
+                <div class="paper-title">ThumbSwipe: A New Input Technique for Efficient One-Handed Concurrent Touchpad Interactions</div>
+                <div class="paper-authors">Sangyoon Lee, Youngbo Aram Shim, <strong>Yohan Yun</strong>, Geehyuk Lee</div>
+                <div class="paper-venue">International Journal of Human–Computer Interaction (IJHCI), Vol 41, No. 23. (Apr 2025)</div>
+                <div class="grid-tags">
+                    <span class="tag">Input systems</span>
+                </div>
+            </div>
+
+            <div class="paper-card">
+                <div class="paper-title">HeadsetSpace: Exploring the Design Space of VR Headset as an Input Controller</div>
+                <div class="paper-authors">Yeonsu Kim, Eunseok Song, <strong>Yohan Yun</strong>, Yubin Lee, Geehyuk Lee</div>
+                <div class="paper-venue">KCC 2025</div>
+                <div class="grid-tags">
+                    <span class="tag">VR</span>
+                    <span class="tag">Input systems</span>
+                </div>
+            </div>
+
+            <div class="paper-card">
+                <div class="paper-title">Demonstrating TwinSpin: A Virtual Ball in a VR Controller Enabling In-Hand 3DoF Rotation</div>
+                <div class="paper-authors">Changsung Lim, <strong>Yohan Yun</strong>, Geehyuk Lee</div>
+                <div class="paper-venue">UIST Adjunct (Demo) <span class="award">🏆 People’s Choice Honorable Mention Award</span></div>
+                <div class="grid-tags">
+                    <span class="tag">VR/AR</span>
+                    <span class="tag">Input Systems</span>
+                    <span class="tag">Gaming Interfaces</span>
+                </div>
+            </div>
+
+            <div class="paper-card">
+                <div class="paper-title">Pro-Tact: Hierarchical Synthesis of Proprioception and Tactile Exploration for Eyes-Free Ray Pointing on Out-of-View VR Menus</div>
+                <div class="paper-authors">Yeonsu Kim, Jisu Yim, Kyunghwan Kim, <strong>Yohan Yun</strong>, Geehyuk Lee</div>
+                <div class="paper-venue">UIST 2024</div>
+                <div class="grid-tags">
+                    <span class="tag">VR</span>
+                    <span class="tag">Input systems</span>
+                    <span class="tag">UIST</span>
+                </div>
+            </div>
+
+            <div class="paper-card">
+                <div class="paper-title">DAPIE: Interactive Step-by-Step Explanatory Dialogues to Answer Children’s Why and How Questions</div>
+                <div class="paper-authors">Yoonjoo Lee, Tae Soo Kim, Sungdong Kim, <strong>Yohan Yun</strong>, Juho Kim</div>
+                <div class="paper-venue">CHI 2023</div>
+                <div class="grid-tags">
+                    <span class="tag">CHI</span>
+                </div>
+            </div>
+
+        </section>
+
+        <section id="skills">
+            <h2>Skills & Certifications</h2>
+            <div class="skills-grid">
+                
+                <div class="skill-category">
+                    <h3>🛠 Technical Stack</h3>
+                    <p><strong>Languages:</strong> Python, C/C++, Java, JavaScript, TypeScript, Scala, F#, C#, UnityScript, Objective-C, Swift</p>
+                    <p><strong>Tools & Frameworks:</strong> Unity, WebGL, AWS, Git, Google Colab, Unity VR (Oculus, Vive)</p>
+                </div>
+
+                <div class="skill-category">
+                    <h3>🗣 Languages</h3>
+                    <ul>
+                        <li><strong>Korean:</strong> Native</li>
+                        <li><strong>English:</strong> Fluent (TOEFL 114, SAT 1490)</li>
+                        <li><strong>Japanese:</strong> Intermediate</li>
+                    </ul>
+                </div>
+
+                <div class="skill-category">
+                    <h3>📜 Certifications</h3>
+                    <ul>
+                        <li>KAIST Certificate in AI (CS372, CS376, CS484, CS454, CS470)</li>
+                        <li>LG Aimer AI Program Certificate</li>
+                    </ul>
+                </div>
+
+            </div>
+        </section>
+
+    </div>
+</body>
+</html>
