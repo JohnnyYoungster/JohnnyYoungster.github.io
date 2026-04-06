@@ -5,14 +5,41 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Yohan Yun | HCI Researcher</title>
     <style>
+        /* Light Theme Variables (Default) */
         :root {
-            --primary-color: #2563eb;
+            --primary-color: #3b82f6; 
+            --primary-hover: #2563eb;
             --text-main: #1f2937;
             --text-light: #4b5563;
-            --bg-color: #f9fafb;
+            --bg-color: #f8fafc;
             --card-bg: #ffffff;
-            --tag-bg: #e0e7ff;
-            --tag-text: #3730a3;
+            --tag-bg: #eff6ff;
+            --tag-text: #1d4ed8;
+            --accent-color: #8b5cf6;
+            --locked-color: #cbd5e1;
+            --border-color: rgba(229, 231, 235, 0.5);
+            --header-bg: rgba(255, 255, 255, 0.85);
+            --toast-bg: #1e293b;
+            --toast-text: #f8fafc;
+            --abyss-mid: #024d85;
+            --abyss-deep: #000c17;
+        }
+
+        /* Dark Theme Variables */
+        body.dark-mode {
+            --text-main: #f8fafc;
+            --text-light: #94a3b8;
+            --bg-color: #0f172a;
+            --card-bg: #1e293b;
+            --tag-bg: #1e3a8a;
+            --tag-text: #bfdbfe;
+            --locked-color: #475569;
+            --border-color: #334155;
+            --header-bg: rgba(15, 23, 42, 0.85);
+            --toast-bg: #ffffff;
+            --toast-text: #0f172a;
+            --abyss-mid: #062b4d;
+            --abyss-deep: #000000;
         }
 
         * {
@@ -26,387 +53,863 @@
             line-height: 1.6;
             color: var(--text-main);
             background-color: var(--bg-color);
+            overflow-x: hidden;
+            transition: background-color 0.3s ease, color 0.3s ease;
         }
 
+        /* Theme Toggle Button */
+        .theme-toggle {
+            position: absolute;
+            top: 2rem;
+            right: 2rem;
+            background: var(--card-bg);
+            border: 1px solid var(--border-color);
+            color: var(--text-main);
+            font-size: 1.25rem;
+            cursor: pointer;
+            border-radius: 50%;
+            width: 45px;
+            height: 45px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            box-shadow: 0 2px 5px rgba(0,0,0,0.1);
+            transition: all 0.3s ease;
+            z-index: 1000;
+        }
+
+        .theme-toggle:hover {
+            transform: scale(1.1);
+            border-color: var(--primary-color);
+        }
+
+        /* XP Bar */
+        #xp-bar-container {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 4px;
+            background: transparent;
+            z-index: 1000;
+        }
+
+        #xp-bar {
+            height: 100%;
+            width: 0%;
+            background: linear-gradient(90deg, var(--primary-color), var(--accent-color));
+            border-radius: 0 2px 2px 0;
+            transition: width 0.1s ease-out;
+        }
+
+        /* Header & Profile */
         header {
-            background-color: var(--card-bg);
-            padding: 4rem 2rem;
-            border-bottom: 1px solid #e5e7eb;
+            background-color: var(--header-bg);
+            backdrop-filter: blur(12px);
+            -webkit-backdrop-filter: blur(12px);
+            padding: 3rem 2rem 2rem;
             text-align: center;
+            border-bottom: 1px solid var(--border-color);
+            position: relative;
+            transition: background-color 0.3s ease, border-color 0.3s ease;
+        }
+
+        .profile-container {
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            gap: 1rem;
+            margin-bottom: 1.5rem;
+        }
+
+        /* Clickable Avatar */
+        .avatar {
+            width: 90px;
+            height: 90px;
+            border-radius: 50%;
+            background: linear-gradient(135deg, var(--primary-color), var(--accent-color));
+            color: white;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 2rem;
+            font-weight: bold;
+            cursor: pointer;
+            user-select: none;
+            transition: transform 0.1s ease;
+            box-shadow: 0 4px 10px rgba(59, 130, 246, 0.3);
+        }
+
+        .avatar:active {
+            transform: scale(0.9);
+        }
+
+        h1 {
+            font-size: 2.5rem;
+            background: linear-gradient(90deg, var(--primary-color), var(--accent-color));
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            font-weight: 800;
+        }
+
+        .social-links {
+            display: flex;
+            justify-content: center;
+            gap: 1rem;
+            margin-bottom: 1.5rem;
+            flex-wrap: wrap;
+        }
+
+        .social-link {
+            padding: 0.5rem 1.25rem;
+            background-color: var(--card-bg);
+            color: var(--primary-color);
+            border: 1px solid var(--border-color);
+            border-radius: 999px;
+            text-decoration: none;
+            font-size: 0.95rem;
+            font-weight: 600;
+            transition: all 0.2s ease;
+        }
+
+        .social-link:hover {
+            background-color: var(--primary-color);
+            color: #ffffff;
+            transform: translateY(-2px);
+            box-shadow: 0 4px 12px rgba(59, 130, 246, 0.2);
+            border-color: var(--primary-color);
+        }
+
+        .intro {
+            font-size: 1.15rem;
+            color: var(--text-light);
+            max-width: 700px;
+            margin: 0 auto 1.5rem;
+        }
+
+        /* Interactive Interest Tags */
+        .interest-tags {
+            display: flex;
+            justify-content: center;
+            gap: 0.5rem;
+            flex-wrap: wrap;
+        }
+
+        .tag-btn {
+            background-color: var(--tag-bg);
+            color: var(--tag-text);
+            padding: 0.4rem 1rem;
+            border-radius: 999px;
+            font-size: 0.85rem;
+            font-weight: 600;
+            border: none;
+            cursor: pointer;
+            transition: all 0.2s ease;
+        }
+
+        .tag-btn:hover, .tag-btn.active {
+            background-color: var(--primary-color);
+            color: white;
+            transform: translateY(-2px);
+            box-shadow: 0 4px 6px rgba(59, 130, 246, 0.2);
+        }
+
+        /* Tabs System */
+        .tab-nav {
+            position: sticky;
+            top: 0;
+            z-index: 90;
+            background: var(--header-bg);
+            backdrop-filter: blur(8px);
+            display: flex;
+            justify-content: center;
+            gap: 2rem;
+            padding: 1rem 2rem;
+            border-bottom: 1px solid var(--border-color);
+            box-shadow: 0 2px 10px rgba(0,0,0,0.02);
+            transition: background-color 0.3s ease, border-color 0.3s ease;
+        }
+
+        .tab-btn {
+            background: none;
+            border: none;
+            font-size: 1.1rem;
+            font-weight: 600;
+            color: var(--text-light);
+            cursor: pointer;
+            padding: 0.5rem 0;
+            position: relative;
+            transition: color 0.3s ease;
+        }
+
+        .tab-btn::after {
+            content: '';
+            position: absolute;
+            bottom: 0;
+            left: 0;
+            width: 0%;
+            height: 3px;
+            background: var(--primary-color);
+            transition: width 0.3s ease;
+            border-radius: 2px;
+        }
+
+        .tab-btn.active {
+            color: var(--primary-color);
+        }
+
+        .tab-btn.active::after {
+            width: 100%;
         }
 
         .container {
             max-width: 900px;
             margin: 0 auto;
             padding: 2rem;
+            min-height: 60vh;
         }
 
-        h1 {
-            font-size: 2.5rem;
-            margin-bottom: 1rem;
-            color: var(--primary-color);
+        .tab-pane {
+            display: none;
+            animation: fadeIn 0.4s ease forwards;
         }
 
-        .intro {
-            font-size: 1.25rem;
-            color: var(--text-light);
-            max-width: 600px;
-            margin: 0 auto;
-            line-height: 1.8;
+        .tab-pane.active {
+            display: block;
         }
 
+        /* Shared Content Styles */
         h2 {
-            font-size: 1.8rem;
-            margin: 3rem 0 1.5rem;
-            border-bottom: 2px solid var(--primary-color);
+            font-size: 1.6rem;
+            margin: 2rem 0 1.5rem;
+            position: relative;
             display: inline-block;
-            padding-bottom: 0.25rem;
+        }
+        h2::after {
+            content: '';
+            position: absolute;
+            bottom: -4px;
+            left: 0;
+            width: 40px;
+            height: 3px;
+            background: var(--primary-color);
+            border-radius: 2px;
         }
 
-        /* Lists and Cards */
-        ul {
-            list-style-position: inside;
-            color: var(--text-light);
-            margin-bottom: 0.5rem;
-            padding-left: 1rem;
-        }
-
-        .grid-tags {
-            display: flex;
-            flex-wrap: wrap;
-            gap: 0.5rem;
-            margin-bottom: 2rem;
-        }
-
-        .tag {
-            background-color: var(--tag-bg);
-            color: var(--tag-text);
-            padding: 0.25rem 0.75rem;
-            border-radius: 999px;
-            font-size: 0.875rem;
-            font-weight: 500;
-        }
-
+        /* Timeline / Experience */
         .timeline-item {
             background: var(--card-bg);
             padding: 1.5rem;
-            border-radius: 8px;
-            box-shadow: 0 1px 3px rgba(0,0,0,0.1);
+            border-radius: 12px;
+            box-shadow: 0 2px 4px rgba(0,0,0,0.02);
             margin-bottom: 1.5rem;
             border-left: 4px solid var(--primary-color);
+            border: 1px solid var(--border-color);
+            transition: background-color 0.3s ease, border-color 0.3s ease;
         }
-
         .timeline-header {
             display: flex;
             justify-content: space-between;
             align-items: baseline;
             margin-bottom: 0.5rem;
-            flex-wrap: wrap;
+        }
+        .timeline-title { font-size: 1.15rem; font-weight: bold; }
+        .timeline-meta { color: var(--primary-color); font-weight: 600; font-size: 0.9rem; }
+        .timeline-item ul { margin-left: 1.2rem; color: var(--text-light); }
+        .timeline-item p { color: var(--text-light); margin-bottom: 0.25rem; }
+
+        /* Publications & Filters */
+        .filter-controls {
+            display: flex;
+            flex-direction: column;
+            gap: 1rem;
+            margin-bottom: 2rem;
+            background: var(--card-bg);
+            padding: 1.5rem;
+            border-radius: 12px;
+            border: 1px solid var(--border-color);
+            transition: background-color 0.3s ease, border-color 0.3s ease;
         }
 
-        .timeline-title {
-            font-size: 1.2rem;
-            font-weight: bold;
+        .search-bar {
+            width: 100%;
+            padding: 0.8rem 1rem;
+            font-size: 1rem;
+            background: var(--bg-color);
             color: var(--text-main);
+            border: 1px solid var(--border-color);
+            border-radius: 8px;
+            outline: none;
+            transition: border-color 0.2s, background-color 0.3s ease, color 0.3s ease;
         }
 
-        .timeline-meta {
-            color: var(--primary-color);
-            font-weight: 600;
-            font-size: 0.95rem;
-        }
-
-        .timeline-item p {
-            color: var(--text-light);
-            margin-bottom: 0.5rem;
+        .search-bar:focus {
+            border-color: var(--primary-color);
+            box-shadow: 0 0 0 3px rgba(59, 130, 246, 0.1);
         }
 
         .paper-card {
             background: var(--card-bg);
             padding: 1.5rem;
-            border-radius: 8px;
-            box-shadow: 0 1px 3px rgba(0,0,0,0.1);
+            border-radius: 12px;
+            box-shadow: 0 2px 4px rgba(0,0,0,0.02);
             margin-bottom: 1.5rem;
-            transition: transform 0.2s;
+            border: 1px solid var(--border-color);
+            transition: transform 0.2s ease, background-color 0.3s ease, border-color 0.3s ease;
         }
 
         .paper-card:hover {
             transform: translateY(-2px);
-            box-shadow: 0 4px 6px rgba(0,0,0,0.1);
+            border-color: rgba(59, 130, 246, 0.3);
+            box-shadow: 0 8px 15px rgba(0,0,0,0.05);
         }
 
-        .paper-title {
-            font-size: 1.2rem;
-            font-weight: bold;
-            margin-bottom: 0.5rem;
-            color: var(--text-main);
-        }
-
-        .paper-authors {
-            color: var(--text-light);
-            margin-bottom: 0.5rem;
-            font-size: 0.95rem;
-        }
-
+        .paper-title { font-size: 1.15rem; font-weight: bold; margin-bottom: 0.5rem; }
+        .paper-authors { color: var(--text-light); font-size: 0.95rem; margin-bottom: 0.5rem; }
         .paper-venue {
-            font-weight: 600;
+            display: inline-block;
+            font-weight: 700;
             color: var(--primary-color);
-            margin-bottom: 0.75rem;
-            font-size: 0.95rem;
-        }
-
-        .award {
-            color: #d97706;
-            font-weight: bold;
-            display: block;
-            margin-top: 0.25rem;
-        }
-
-        /* Skills Grid */
-        .skills-grid {
-            display: grid;
-            grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
-            gap: 1.5rem;
-        }
-
-        .skill-category {
-            background: var(--card-bg);
-            padding: 1.5rem;
-            border-radius: 8px;
-            box-shadow: 0 1px 3px rgba(0,0,0,0.1);
-        }
-
-        .skill-category h3 {
-            font-size: 1.1rem;
-            color: var(--primary-color);
+            background: var(--tag-bg);
+            padding: 0.2rem 0.6rem;
+            border-radius: 4px;
+            font-size: 0.85rem;
             margin-bottom: 1rem;
+        }
+        
+        .paper-tags { display: flex; flex-wrap: wrap; gap: 0.4rem; }
+        .paper-tag {
+            font-size: 0.75rem;
+            background: var(--bg-color);
+            color: var(--text-light);
+            padding: 0.2rem 0.6rem;
+            border-radius: 4px;
+            font-weight: 600;
+            border: 1px solid var(--border-color);
+        }
+
+        /* Achievements Trophy Room */
+        .achievements-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fill, minmax(280px, 1fr));
+            gap: 1.5rem;
+            position: relative;
+            z-index: 2; /* Keeps cards above the abyss gradient */
+        }
+
+        .achievement-card {
+            background: var(--card-bg);
+            border: 1px solid var(--border-color);
+            border-radius: 12px;
+            padding: 1.5rem;
+            display: flex;
+            align-items: center;
+            gap: 1rem;
+            transition: all 0.3s ease;
+            position: relative;
+            overflow: hidden;
+        }
+
+        .achievement-card.locked {
+            background: var(--bg-color);
+            opacity: 0.7;
+            filter: grayscale(100%);
+        }
+
+        .achievement-card.unlocked {
+            border-color: var(--primary-color);
+            background: linear-gradient(145deg, var(--card-bg), var(--tag-bg));
+            box-shadow: 0 4px 12px rgba(59, 130, 246, 0.1);
+        }
+
+        .ach-icon {
+            font-size: 2.5rem;
+            width: 60px;
+            height: 60px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            background: var(--bg-color);
+            border-radius: 50%;
+        }
+        
+        .achievement-card.unlocked .ach-icon {
+            background: transparent;
+        }
+
+        .ach-info h3 { font-size: 1rem; color: var(--text-main); margin-bottom: 0.2rem;}
+        .ach-info p { font-size: 0.85rem; color: var(--text-light); line-height: 1.3;}
+        
+        .achievement-card.locked .ach-info h3 { color: var(--locked-color); }
+        .achievement-card.locked .ach-info p { display: none; }
+        .achievement-card.locked::after {
+            content: 'Locked';
+            font-size: 0.8rem;
+            font-weight: bold;
+            color: var(--locked-color);
+            position: absolute;
+            bottom: 1rem;
+            right: 1.5rem;
+        }
+
+        /* The Deep Diver Abyss */
+        .abyss-spacer {
+            height: 150vh; 
+            position: relative;
+            width: 100vw;
+            margin-left: 50%;
+            transform: translateX(-50%);
+            /* Creates the smooth plunge into the deep blue/black */
+            background: linear-gradient(to bottom, transparent, var(--abyss-mid), var(--abyss-deep));
+            margin-top: 4rem;
+            display: flex;
+            align-items: flex-end;
+            justify-content: center;
+        }
+        
+        #bottom-secret {
+            padding-bottom: 2rem;
+            text-align: center;
+            font-size: 1.2rem;
+            color: rgba(255, 255, 255, 0.4); /* Always light text in the abyss */
+            font-family: monospace;
+            text-shadow: 0 2px 4px rgba(0,0,0,0.5);
+        }
+
+        /* Toast Notification */
+        #achievement-toast {
+            position: fixed;
+            bottom: -100px;
+            right: 20px;
+            background: var(--toast-bg);
+            color: var(--toast-text);
+            padding: 1rem 1.5rem;
+            border-radius: 8px;
+            border-left: 4px solid #fbbf24;
+            display: flex;
+            align-items: center;
+            gap: 12px;
+            box-shadow: 0 10px 25px rgba(0,0,0,0.3);
+            transition: bottom 0.5s cubic-bezier(0.175, 0.885, 0.32, 1.275);
+            z-index: 1000;
+        }
+
+        #achievement-toast.show { bottom: 20px; }
+        .toast-text h4 { font-size: 0.85rem; color: #fbbf24; text-transform: uppercase; margin-bottom: 2px;}
+        .toast-text p { font-size: 0.95rem; font-weight: 600;}
+
+        @keyframes fadeIn {
+            from { opacity: 0; transform: translateY(10px); }
+            to { opacity: 1; transform: translateY(0); }
         }
 
         @media (max-width: 600px) {
-            header { padding: 3rem 1rem; }
-            .container { padding: 1rem; }
+            header { padding: 2rem 1rem; }
+            .tab-nav { padding: 1rem; gap: 1rem; font-size: 0.9rem;}
             .timeline-header { flex-direction: column; }
+            .theme-toggle { top: 1rem; right: 1rem; }
         }
     </style>
 </head>
 <body>
 
+    <div id="xp-bar-container"><div id="xp-bar"></div></div>
+
     <header>
-        <h1>Yohan Yun</h1>
-        <p class="intro">Hello! I am interested in improving the gaming experience of VR, laptop, and console gaming through developing novel haptic and input systems :D</p>
+        <button id="theme-toggle" class="theme-toggle" onclick="toggleTheme()" aria-label="Toggle Dark Mode">
+            🌙
+        </button>
+
+        <div class="profile-container">
+            <div class="avatar" id="avatar" onclick="handleAvatarClick()">YY</div>
+            <h1>Yohan Yun</h1>
+        </div>
+        
+        <div class="social-links">
+            <a href="mailto:yohanme@kaist.ac.kr" class="social-link" onclick="triggerAchievement('communicator')">✉️ Email</a>
+            <a href="https://github.com/JohnnyYoungster" target="_blank" rel="noopener noreferrer" class="social-link" onclick="triggerAchievement('opensource')">💻 GitHub</a>
+            <a href="https://www.linkedin.com/in/yohan-yun-65061b387/" target="_blank" rel="noopener noreferrer" class="social-link" onclick="triggerAchievement('networker')">💼 LinkedIn</a>
+        </div>
+
+        <p class="intro">Ph.D. student at the School of Computing, KAIST. I design novel haptic and input systems to improve the gaming experience across VR, laptops, and consoles.</p>
+        
+        <div class="interest-tags">
+            <button class="tag-btn" onclick="routeToInterest('Gaming')">Gaming Interfaces</button>
+            <button class="tag-btn" onclick="routeToInterest('Input')">Input Systems</button>
+            <button class="tag-btn" onclick="routeToInterest('Haptic')">Haptic Devices</button>
+            <button class="tag-btn" onclick="routeToInterest('VR')">VR/AR Systems</button>
+        </div>
     </header>
 
-    <div class="container">
+    <nav class="tab-nav">
+        <button class="tab-btn active" onclick="switchTab('background', this)">Background</button>
+        <button class="tab-btn" onclick="switchTab('publications', this)">Publications</button>
+        <button class="tab-btn" onclick="switchTab('achievements', this)">Achievements <span id="ach-counter">(0/7)</span></button>
+    </nav>
+
+    <main class="container">
         
-        <section id="research-interests">
-            <h2>Research Interests</h2>
-            <div class="grid-tags">
-                <span class="tag">Gaming Interfaces</span>
-                <span class="tag">Input Systems</span>
-                <span class="tag">Haptic Devices</span>
-                <span class="tag">VR/AR Systems</span>
-            </div>
-        </section>
+        <div id="background" class="tab-pane active">
+            <section id="education">
+                <h2>Education</h2>
+                <div class="timeline-item">
+                    <div class="timeline-header">
+                        <span class="timeline-title">Ph.D. in Computer Science (HCI Lab)</span>
+                        <span class="timeline-meta">KAIST | 2026 – Present</span>
+                    </div>
+                    <p><strong>Advisor:</strong> Prof. Geehyuk Lee</p>
+                </div>
+                <div class="timeline-item">
+                    <div class="timeline-header">
+                        <span class="timeline-title">M.S. in Computer Science (HCI Lab)</span>
+                        <span class="timeline-meta">KAIST | 2024 – 2026</span>
+                    </div>
+                    <p><strong>Advisor:</strong> Prof. Geehyuk Lee | <strong>GPA:</strong> 4.07 / 4.3</p>
+                </div>
+                <div class="timeline-item">
+                    <div class="timeline-header">
+                        <span class="timeline-title">B.S. in Computer Science (Minor: Culture Tech)</span>
+                        <span class="timeline-meta">KAIST | 2019 – 2023</span>
+                    </div>
+                    <p><strong>GPA:</strong> 3.76 / 4.3</p>
+                </div>
+                <div class="timeline-item">
+                    <div class="timeline-header">
+                        <span class="timeline-title">Exchange Student</span>
+                        <span class="timeline-meta">University of Toronto | Fall 2022</span>
+                    </div>
+                </div>
+            </section>
 
-        <section id="education">
-            <h2>Education</h2>
+            <section id="experience">
+                <h2>Experience & Projects</h2>
+                <div class="timeline-item">
+                    <div class="timeline-header">
+                        <span class="timeline-title">Research Intern | KIXLAB, KAIST</span>
+                        <span class="timeline-meta">2021 – 2022</span>
+                    </div>
+                    <ul>
+                        <li><strong>DAPIE:</strong> Designed a system for explanatory dialogues to answer children's "why/how" questions. (CHI 2023).</li>
+                        <li><strong>PerPl:</strong> Collaborated with Hyundai Motor Group on a personalized music system. Built Unity VR prototypes and AWS/Python backend.</li>
+                    </ul>
+                </div>
+                <div class="timeline-item">
+                    <div class="timeline-header">
+                        <span class="timeline-title">Lead Developer & Project Manager | K-School</span>
+                        <span class="timeline-meta">2019 – 2022</span>
+                    </div>
+                    <ul>
+                        <li>Led development for simulation games (Battman, Sharide, Hotice) used at DTU, TU Munich, and Harvard.</li>
+                        <li><strong>Tech:</strong> Unity WebGL, AWS.</li>
+                    </ul>
+                </div>
+            </section>
             
-            <div class="timeline-item">
-                <div class="timeline-header">
-                    <span class="timeline-title">Ph.D. in Computer Science (HCI Lab)</span>
-                    <span class="timeline-meta">KAIST | 2026 – Present</span>
+            <section id="skills">
+                <h2>Technical Skills</h2>
+                <div class="timeline-item">
+                    <p><strong>Languages:</strong> Python, C/C++, Java, JavaScript, TypeScript, Scala, F#, C#, UnityScript, Objective C, Swift</p>
+                    <p><strong>Tools:</strong> Unity, WebGL, AWS, Git, Google Colab, Unity VR (Oculus, Vive)</p>
+                    <p><strong>Certifications:</strong> KAIST Certificate in AI, LG Aimer AI Program</p>
+                </div>
+            </section>
+        </div>
+
+        <div id="publications" class="tab-pane">
+            <div class="filter-controls">
+                <input type="text" id="search-input" class="search-bar" placeholder="Search titles, authors, or tags..." oninput="handleSearch()">
+                <div class="interest-tags" id="filter-chip-container">
+                    <button class="tag-btn active" onclick="setFilter('All')">All</button>
+                    <button class="tag-btn" onclick="setFilter('Gaming')">Gaming Interfaces</button>
+                    <button class="tag-btn" onclick="setFilter('Input')">Input Systems</button>
+                    <button class="tag-btn" onclick="setFilter('Haptic')">Haptic Devices</button>
+                    <button class="tag-btn" onclick="setFilter('VR')">VR/AR</button>
                 </div>
             </div>
 
-            <div class="timeline-item">
-                <div class="timeline-header">
-                    <span class="timeline-title">M.S. in Computer Science (HCI Lab)</span>
-                    <span class="timeline-meta">KAIST | 2024 – 2026</span>
+            <div id="papers-container">
+                <div class="paper-card" data-tags="gaming interfaces,haptic devices,chi">
+                    <div class="paper-title">HapPalm: Providing Rich Spatio-Temporal Vibrotactile Feedback on the Palm for Laptop Gaming</div>
+                    <div class="paper-authors"><strong>Yohan Yun</strong>, Jaehyun Kim, Geehyuk Lee</div>
+                    <div class="paper-venue">CHI 2026</div>
+                    <div class="paper-tags">
+                        <span class="paper-tag">Gaming Interfaces</span><span class="paper-tag">Haptic Devices</span><span class="paper-tag">CHI</span>
+                    </div>
                 </div>
-                <p><strong>Advisor:</strong> Prof. Geehyuk Lee</p>
-                <p><strong>Research Focus:</strong> AR/VR Interaction, Input Systems, Video Games, Interactive Media, Haptics</p>
-                <p><strong>GPA:</strong> 4.07 / 4.3</p>
-            </div>
 
-            <div class="timeline-item">
-                <div class="timeline-header">
-                    <span class="timeline-title">B.S. in Computer Science</span>
-                    <span class="timeline-meta">KAIST | 2019 – 2023</span>
+                <div class="paper-card" data-tags="input systems">
+                    <div class="paper-title">AutoPark: Adaptive Friction Mouse Facilitating Stable Multi-touch Gesture Input</div>
+                    <div class="paper-authors"><strong>Yohan Yun</strong>, Jisu Yim, Geehyuk Lee</div>
+                    <div class="paper-venue">ISS 2025</div>
+                    <div class="paper-tags"><span class="paper-tag">Input Systems</span></div>
                 </div>
-                <p><strong>Minor:</strong> Culture Technology</p>
-                <p><strong>GPA:</strong> 3.76 / 4.3</p>
-            </div>
 
-            <div class="timeline-item">
-                <div class="timeline-header">
-                    <span class="timeline-title">Exchange Student</span>
-                    <span class="timeline-meta">University of Toronto | Fall 2022</span>
+                <div class="paper-card" data-tags="vr/ar,vr,ar,haptic devices,uist">
+                    <div class="paper-title">StringTouch: A Non-occlusive 3DoF Haptic Interface Using String Structures for Modulating Finger Sensations</div>
+                    <div class="paper-authors">YoungIn Kim, Jisu Yim, <strong>Yohan Yun</strong>, Donghyeon Ko, Geehyuk Lee</div>
+                    <div class="paper-venue">UIST 2025</div>
+                    <div class="paper-tags">
+                        <span class="paper-tag">VR/AR</span><span class="paper-tag">Haptic Devices</span><span class="paper-tag">UIST</span>
+                    </div>
                 </div>
-                <p>Coursework in Robotics, Game Design, Graphics AI, and HCI.</p>
-            </div>
 
-            <div class="timeline-item">
-                <div class="timeline-header">
-                    <span class="timeline-title">High School</span>
-                    <span class="timeline-meta">Korea Science Academy (KSA) | 2016 – 2019</span>
+                <div class="paper-card" data-tags="input systems,chi">
+                    <div class="paper-title">Over the Mouse: Navigating across the GUI with Finger-Lifting Operation Mouse</div>
+                    <div class="paper-authors">YoungIn Kim, <strong>Yohan Yun</strong>, Taejun Kim, Geehyuk Lee</div>
+                    <div class="paper-venue">CHI 2025</div>
+                    <div class="paper-tags"><span class="paper-tag">Input Systems</span><span class="paper-tag">CHI</span></div>
                 </div>
-            </div>
-        </section>
 
-        <section id="experience">
-            <h2>Experience & Projects</h2>
-
-            <div class="timeline-item">
-                <div class="timeline-header">
-                    <span class="timeline-title">Research Intern | KIXLAB, KAIST</span>
-                    <span class="timeline-meta">2021 – 2022</span>
+                <div class="paper-card" data-tags="input systems">
+                    <div class="paper-title">ThumbSwipe: A New Input Technique for Efficient One-Handed Concurrent Touchpad Interactions</div>
+                    <div class="paper-authors">Sangyoon Lee, Youngbo Aram Shim, <strong>Yohan Yun</strong>, Geehyuk Lee</div>
+                    <div class="paper-venue">IJHCI 2025</div>
+                    <div class="paper-tags"><span class="paper-tag">Input Systems</span></div>
                 </div>
-                <ul>
-                    <li><strong>DAPIE:</strong> Designed a system for explanatory dialogues to answer children's "why/how" questions. Built the Q&A dataset and led design ideation. (Resulted in a CHI 2023 publication).</li>
-                    <li><strong>PerPl:</strong> Collaborated with Hyundai Motor Group to design and develop a personalized music system for mobility contexts. Built Unity-based VR prototypes and a backend server using AWS and Python.</li>
-                </ul>
-            </div>
 
-            <div class="timeline-item">
-                <div class="timeline-header">
-                    <span class="timeline-title">Lead Developer & Project Manager | K-School</span>
-                    <span class="timeline-meta">2019 – 2022</span>
+                <div class="paper-card" data-tags="vr/ar,vr,ar,input systems">
+                    <div class="paper-title">HeadsetSpace: Exploring the Design Space of VR Headset as an Input Controller</div>
+                    <div class="paper-authors">Yeonsu Kim, Eunseok Song, <strong>Yohan Yun</strong>, Yubin Lee, Geehyuk Lee</div>
+                    <div class="paper-venue">KCC 2025</div>
+                    <div class="paper-tags"><span class="paper-tag">VR</span><span class="paper-tag">Input Systems</span></div>
                 </div>
-                <p>Startup Simulation Game Development</p>
-                <ul>
-                    <li>Led development and management for educational simulation games including <em>Battman</em>, <em>Sharide</em>, and <em>Hotice</em>.</li>
-                    <li>Games are actively used in curricula at institutions like DTU, TU Munich, and Harvard.</li>
-                    <li><strong>Tech Stack:</strong> Unity WebGL frontend + AWS backend.</li>
-                </ul>
-            </div>
-        </section>
 
-        <section id="publications">
-            <h2>Publications</h2>
+                <div class="paper-card" data-tags="vr/ar,vr,ar,input systems,gaming interfaces">
+                    <div class="paper-title">Demonstrating TwinSpin: A Virtual Ball in a VR Controller Enabling In-Hand 3DoF Rotation</div>
+                    <div class="paper-authors">Changsung Lim, <strong>Yohan Yun</strong>, Geehyuk Lee</div>
+                    <div class="paper-venue">UIST Adjunct (Demo) 🏆</div>
+                    <div class="paper-tags">
+                        <span class="paper-tag">VR/AR</span><span class="paper-tag">Input Systems</span><span class="paper-tag">Gaming Interfaces</span>
+                    </div>
+                </div>
 
-            <div class="paper-card">
-                <div class="paper-title">HapPalm: Providing Rich Spatio-Temporal Vibrotactile Feedback on the Palm for Laptop Gaming</div>
-                <div class="paper-authors"><strong>Yohan Yun</strong>, Jaehyun Kim, Geehyuk Lee</div>
-                <div class="paper-venue">CHI 2026</div>
-                <div class="grid-tags">
-                    <span class="tag">Gaming interfaces</span>
-                    <span class="tag">Haptic devices</span>
-                    <span class="tag">CHI</span>
+                <div class="paper-card" data-tags="vr/ar,vr,ar,input systems,uist">
+                    <div class="paper-title">Pro-Tact: Hierarchical Synthesis of Proprioception and Tactile Exploration for Eyes-Free Ray Pointing on Out-of-View VR Menus</div>
+                    <div class="paper-authors">Yeonsu Kim, Jisu Yim, Kyunghwan Kim, <strong>Yohan Yun</strong>, Geehyuk Lee</div>
+                    <div class="paper-venue">UIST 2024</div>
+                    <div class="paper-tags"><span class="paper-tag">VR</span><span class="paper-tag">Input Systems</span><span class="paper-tag">UIST</span></div>
+                </div>
+
+                <div class="paper-card" data-tags="chi,dialogues">
+                    <div class="paper-title">DAPIE: Interactive Step-by-Step Explanatory Dialogues to Answer Children’s Why and How Questions</div>
+                    <div class="paper-authors">Yoonjoo Lee, Tae Soo Kim, Sungdong Kim, <strong>Yohan Yun</strong>, Juho Kim</div>
+                    <div class="paper-venue">CHI 2023</div>
+                    <div class="paper-tags"><span class="paper-tag">CHI</span></div>
                 </div>
             </div>
+        </div>
 
-            <div class="paper-card">
-                <div class="paper-title">AutoPark: Adaptive Friction Mouse Facilitating Stable Multi-touch Gesture Input</div>
-                <div class="paper-authors"><strong>Yohan Yun</strong>, Jisu Yim, Geehyuk Lee</div>
-                <div class="paper-venue">ISS 2025 (PACM HCI)</div>
-                <div class="grid-tags">
-                    <span class="tag">Input systems</span>
+        <div id="achievements" class="tab-pane">
+            <h2>Trophy Room</h2>
+            <p style="color: var(--text-light); margin-bottom: 2rem;">Unlock achievements by exploring the portfolio.</p>
+            
+            <div class="achievements-grid" id="achievements-grid">
+                </div>
+
+            <div class="abyss-spacer">
+                <div id="bottom-secret">
+                    You've reached the absolute bottom. Go up! 🤿
                 </div>
             </div>
+        </div>
 
-            <div class="paper-card">
-                <div class="paper-title">StringTouch: A Non-occlusive 3DoF Haptic Interface Using String Structures for Modulating Finger Sensations</div>
-                <div class="paper-authors">YoungIn Kim, Jisu Yim, <strong>Yohan Yun</strong>, Donghyeon Ko, Geehyuk Lee</div>
-                <div class="paper-venue">UIST 2025</div>
-                <div class="grid-tags">
-                    <span class="tag">VR/AR</span>
-                    <span class="tag">Haptic devices</span>
-                    <span class="tag">UIST</span>
-                </div>
-            </div>
+    </main>
 
-            <div class="paper-card">
-                <div class="paper-title">Over the Mouse: Navigating across the GUI with Finger-Lifting Operation Mouse</div>
-                <div class="paper-authors">YoungIn Kim, <strong>Yohan Yun</strong>, Taejun Kim, Geehyuk Lee</div>
-                <div class="paper-venue">CHI 2025</div>
-                <div class="grid-tags">
-                    <span class="tag">Input systems</span>
-                    <span class="tag">CHI</span>
-                </div>
-            </div>
-
-            <div class="paper-card">
-                <div class="paper-title">ThumbSwipe: A New Input Technique for Efficient One-Handed Concurrent Touchpad Interactions</div>
-                <div class="paper-authors">Sangyoon Lee, Youngbo Aram Shim, <strong>Yohan Yun</strong>, Geehyuk Lee</div>
-                <div class="paper-venue">International Journal of Human–Computer Interaction (IJHCI), Vol 41, No. 23. (Apr 2025)</div>
-                <div class="grid-tags">
-                    <span class="tag">Input systems</span>
-                </div>
-            </div>
-
-            <div class="paper-card">
-                <div class="paper-title">HeadsetSpace: Exploring the Design Space of VR Headset as an Input Controller</div>
-                <div class="paper-authors">Yeonsu Kim, Eunseok Song, <strong>Yohan Yun</strong>, Yubin Lee, Geehyuk Lee</div>
-                <div class="paper-venue">KCC 2025</div>
-                <div class="grid-tags">
-                    <span class="tag">VR</span>
-                    <span class="tag">Input systems</span>
-                </div>
-            </div>
-
-            <div class="paper-card">
-                <div class="paper-title">Demonstrating TwinSpin: A Virtual Ball in a VR Controller Enabling In-Hand 3DoF Rotation</div>
-                <div class="paper-authors">Changsung Lim, <strong>Yohan Yun</strong>, Geehyuk Lee</div>
-                <div class="paper-venue">UIST Adjunct (Demo) <span class="award">🏆 People’s Choice Honorable Mention Award</span></div>
-                <div class="grid-tags">
-                    <span class="tag">VR/AR</span>
-                    <span class="tag">Input Systems</span>
-                    <span class="tag">Gaming Interfaces</span>
-                </div>
-            </div>
-
-            <div class="paper-card">
-                <div class="paper-title">Pro-Tact: Hierarchical Synthesis of Proprioception and Tactile Exploration for Eyes-Free Ray Pointing on Out-of-View VR Menus</div>
-                <div class="paper-authors">Yeonsu Kim, Jisu Yim, Kyunghwan Kim, <strong>Yohan Yun</strong>, Geehyuk Lee</div>
-                <div class="paper-venue">UIST 2024</div>
-                <div class="grid-tags">
-                    <span class="tag">VR</span>
-                    <span class="tag">Input systems</span>
-                    <span class="tag">UIST</span>
-                </div>
-            </div>
-
-            <div class="paper-card">
-                <div class="paper-title">DAPIE: Interactive Step-by-Step Explanatory Dialogues to Answer Children’s Why and How Questions</div>
-                <div class="paper-authors">Yoonjoo Lee, Tae Soo Kim, Sungdong Kim, <strong>Yohan Yun</strong>, Juho Kim</div>
-                <div class="paper-venue">CHI 2023</div>
-                <div class="grid-tags">
-                    <span class="tag">CHI</span>
-                </div>
-            </div>
-
-        </section>
-
-        <section id="skills">
-            <h2>Skills & Certifications</h2>
-            <div class="skills-grid">
-                
-                <div class="skill-category">
-                    <h3>🛠 Technical Stack</h3>
-                    <p><strong>Languages:</strong> Python, C/C++, Java, JavaScript, TypeScript, Scala, F#, C#, UnityScript, Objective-C, Swift</p>
-                    <p><strong>Tools & Frameworks:</strong> Unity, WebGL, AWS, Git, Google Colab, Unity VR (Oculus, Vive)</p>
-                </div>
-
-                <div class="skill-category">
-                    <h3>🗣 Languages</h3>
-                    <ul>
-                        <li><strong>Korean:</strong> Native</li>
-                        <li><strong>English:</strong> Fluent (TOEFL 114, SAT 1490)</li>
-                        <li><strong>Japanese:</strong> Intermediate</li>
-                    </ul>
-                </div>
-
-                <div class="skill-category">
-                    <h3>📜 Certifications</h3>
-                    <ul>
-                        <li>KAIST Certificate in AI (CS372, CS376, CS484, CS454, CS470)</li>
-                        <li>LG Aimer AI Program Certificate</li>
-                    </ul>
-                </div>
-
-            </div>
-        </section>
-
+    <div id="achievement-toast">
+        <div style="font-size: 2rem;">🏆</div>
+        <div class="toast-text">
+            <h4>Achievement Unlocked</h4>
+            <p id="toast-desc">Name</p>
+        </div>
     </div>
+
+    <script>
+        // --- Dark Mode / Theme System ---
+        function initTheme() {
+            const savedTheme = localStorage.getItem('portfolio-theme');
+            const prefersDark = window.matchMedia && window.matchMedia('(prefers-color-scheme: dark)').matches;
+            
+            if (savedTheme === 'dark' || (!savedTheme && prefersDark)) {
+                document.body.classList.add('dark-mode');
+                document.getElementById('theme-toggle').innerText = '☀️';
+            } else {
+                document.getElementById('theme-toggle').innerText = '🌙';
+            }
+        }
+
+        function toggleTheme() {
+            document.body.classList.toggle('dark-mode');
+            const isDark = document.body.classList.contains('dark-mode');
+            
+            localStorage.setItem('portfolio-theme', isDark ? 'dark' : 'light');
+            document.getElementById('theme-toggle').innerText = isDark ? '☀️' : '🌙';
+        }
+
+        // --- Game Engine / State ---
+        const ACHIEVEMENTS = {
+            'communicator': { icon: '✉️', title: 'Communicator', desc: 'Clicked the Email link.' },
+            'opensource': { icon: '💻', title: 'Open Source', desc: 'Checked out the GitHub repo.' },
+            'networker': { icon: '💼', title: 'Networker', desc: 'Visited the LinkedIn profile.' },
+            'literature': { icon: '📚', title: 'Literature Review', desc: 'Opened the Publications tab.' },
+            'curator': { icon: '🔍', title: 'Curator', desc: 'Used the publication search or tag filter.' },
+            'clicker': { icon: '👆', title: 'Persistent', desc: 'Clicked the profile avatar 20 times.' },
+            'deepdiver': { icon: '🤿', title: 'Deep Diver', desc: 'Scrolled into the deep abyss.' }
+        };
+
+        let unlockedSet = new Set();
+        let avatarClicks = 0;
+        let activeFilter = 'All';
+
+        // --- Initialization ---
+        function init() {
+            initTheme();
+            renderAchievements();
+            setupScrollObserver();
+            setupXPBar();
+        }
+
+        // --- Navigation / Tabs ---
+        function switchTab(tabId, btnElement) {
+            document.querySelectorAll('.tab-btn').forEach(btn => btn.classList.remove('active'));
+            if(btnElement) btnElement.classList.add('active');
+
+            document.querySelectorAll('.tab-pane').forEach(pane => pane.classList.remove('active'));
+            document.getElementById(tabId).classList.add('active');
+            window.scrollTo({ top: 0, behavior: 'smooth' });
+
+            if(tabId === 'publications') {
+                triggerAchievement('literature');
+            }
+        }
+
+        // --- Header Interest Routing ---
+        function routeToInterest(tagKeywords) {
+            const pubBtn = document.querySelectorAll('.tab-btn')[1];
+            switchTab('publications', pubBtn);
+            setFilter(tagKeywords);
+            
+            const tabNav = document.querySelector('.tab-nav');
+            window.scrollTo({ top: tabNav.offsetTop, behavior: 'smooth' });
+        }
+
+        // --- Filtering Logic ---
+        function setFilter(tagKeyword) {
+            activeFilter = tagKeyword;
+            
+            document.querySelectorAll('#filter-chip-container .tag-btn').forEach(btn => {
+                if(btn.innerText.includes(tagKeyword) || (tagKeyword==='All' && btn.innerText==='All')) {
+                    btn.classList.add('active');
+                } else {
+                    btn.classList.remove('active');
+                }
+            });
+
+            if(tagKeyword !== 'All') triggerAchievement('curator');
+            executeFilter();
+        }
+
+        function handleSearch() {
+            triggerAchievement('curator');
+            executeFilter();
+        }
+
+        function executeFilter() {
+            const query = document.getElementById('search-input').value.toLowerCase();
+            const cards = document.querySelectorAll('.paper-card');
+            
+            cards.forEach(card => {
+                const text = card.innerText.toLowerCase();
+                const tags = card.getAttribute('data-tags').toLowerCase();
+                
+                const matchesSearch = text.includes(query);
+                const matchesTag = activeFilter === 'All' ? true : tags.includes(activeFilter.toLowerCase());
+
+                if(matchesSearch && matchesTag) {
+                    card.style.display = 'block';
+                } else {
+                    card.style.display = 'none';
+                }
+            });
+        }
+
+        // --- Achievement Logic ---
+        function triggerAchievement(id) {
+            if (unlockedSet.has(id)) return;
+            
+            unlockedSet.add(id);
+            const ach = ACHIEVEMENTS[id];
+            
+            const toast = document.getElementById('achievement-toast');
+            document.getElementById('toast-desc').innerText = ach.title;
+            
+            toast.classList.remove('show');
+            void toast.offsetWidth; // Reflow
+            toast.classList.add('show');
+            
+            setTimeout(() => toast.classList.remove('show'), 4000);
+
+            updateAchievementCounter();
+            renderAchievements(); 
+        }
+
+        function renderAchievements() {
+            const grid = document.getElementById('achievements-grid');
+            grid.innerHTML = '';
+
+            Object.entries(ACHIEVEMENTS).forEach(([id, data]) => {
+                const isUnlocked = unlockedSet.has(id);
+                const html = `
+                    <div class="achievement-card ${isUnlocked ? 'unlocked' : 'locked'}">
+                        <div class="ach-icon">${data.icon}</div>
+                        <div class="ach-info">
+                            <h3>${data.title}</h3>
+                            <p>${data.desc}</p>
+                        </div>
+                    </div>
+                `;
+                grid.insertAdjacentHTML('beforeend', html);
+            });
+        }
+
+        function updateAchievementCounter() {
+            document.getElementById('ach-counter').innerText = `(${unlockedSet.size}/${Object.keys(ACHIEVEMENTS).length})`;
+        }
+
+        // --- Avatar Clicker ---
+        function handleAvatarClick() {
+            avatarClicks++;
+            const avatar = document.getElementById('avatar');
+            avatar.style.transform = `scale(${1 + (avatarClicks * 0.02)}) rotate(${avatarClicks * 5}deg)`;
+            setTimeout(() => avatar.style.transform = '', 150);
+
+            if (avatarClicks >= 20) {
+                triggerAchievement('clicker');
+            }
+        }
+
+        // --- Scroll & Observers ---
+        function setupScrollObserver() {
+            const secret = document.getElementById('bottom-secret');
+            const observer = new IntersectionObserver((entries) => {
+                if (entries[0].isIntersecting) {
+                    triggerAchievement('deepdiver');
+                }
+            }, { threshold: 0.1 });
+            
+            observer.observe(secret);
+        }
+
+        function setupXPBar() {
+            window.addEventListener('scroll', () => {
+                let winScroll = document.body.scrollTop || document.documentElement.scrollTop;
+                let height = document.documentElement.scrollHeight - document.documentElement.clientHeight;
+                let scrolled = (winScroll / height) * 100;
+                document.getElementById("xp-bar").style.width = scrolled + "%";
+            });
+        }
+
+        // Boot up
+        window.onload = init;
+    </script>
 </body>
 </html>
